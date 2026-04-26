@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block title %}New Scan{% endblock %}
+{% block page_title %}<i class="bi bi-camera-fill me-2 text-primary"></i>New Retinal Screening{% endblock %}
+
+{% block content %}
+<div class="row g-4 mt-1">
+
+  <!-- ── Upload Panel ──────────────────────────────────────── -->
+  <div class="col-lg-5">
+    <div class="rg-card h-100">
+      <div class="rg-card-header">
+        <span><i class="bi bi-upload me-2"></i>Upload Image</span>
+      </div>
+      <div class="rg-card-body">
+
+        <!-- Drop Zone -->
+        <div class="rg-dropzone" id="dropzone">
+          <div id="dropzone-placeholder">
+            <i class="bi bi-cloud-arrow-up fs-1 text-primary mb-3"></i>
+            <p class="fw-semibold mb-1">Drag &amp; drop retinal image here</p>
+            <p class="text-muted small mb-3">or click to browse</p>
+            <span class="badge bg-secondary-subtle text-secondary">PNG · JPG · TIFF · BMP · Max 16 MB</span>
+          </div>
+          <img id="preview-img" class="d-none rg-preview-img" alt="Preview"/>
+          <input type="file" id="file-input" accept="image/*" class="d-none"/>
+        </div>
+
+        <!-- Scan Options -->
+        <div class="mt-3">
+          <label class="form-label fw-medium">Which eye?</label>
+          <div class="d-flex gap-2">
+            <input type="radio" class="btn-check" name="eye_side" id="leftEye" value="left" autocomplete="off"/>
+            <label class="btn btn-outline-secondary flex-fill" for="leftEye">
+              <i class="bi bi-eye me-1"></i>Left Eye
+            </label>
+            <input type="radio" class="btn-check" name="eye_side" id="rightEye" value="right" autocomplete="off"/>
+            <label class="btn btn-outline-secondary flex-fill" for="rightEye">
+              <i class="bi bi-eye me-1"></i>Right Eye
+            </label>
+          </div>
+        </div>
+
+        <button id="analyzeBtn" class="btn btn-primary w-100 py-2 mt-4 fw-semibold" disabled>
+          <i class="bi bi-cpu-fill me-2"></i>Run Screening Analysis
+        </button>
+
+        <!-- Progress -->
+        <div id="scanProgress" class="d-none mt-3">
+          <div class="d-flex align-items-center gap-2 text-primary mb-2">
+            <div class="spinner-border spinner-border-sm"></div>
+            <span id="progressText">Uploading image…</span>
+          </div>
+          <div class="progress" style="height:6px">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progressBar" style="width:30%"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Results Panel ─────────────────────────────────────── -->
+  <div class="col-lg-7">
+    <!-- Placeholder -->
+    <div id="resultsPlaceholder" class="rg-card h-100 d-flex align-items-center justify-content-center">
+      <div class="rg-empty-state py-5">
+        <i class="bi bi-cpu fs-1 text-muted"></i>
+        <p class="mt-3 text-muted">Upload a retinal image and click <strong>Analyze</strong> to see screening results here.</p>
+      </div>
+    </div>
+
+    <!-- Results (hidden until scan completes) -->
+    <div id="resultsPanel" class="d-none">
+
+      <!-- Simulation Mode Banner -->
+      <div id="demoBanner" class="alert alert-warning d-none mb-3">
+        <i class="bi bi-info-circle-fill me-2"></i>
+        <strong>Simulation Mode:</strong> Screening engine calibration pending. Results shown are simulated.
+      </div>
+
+      <!-- Severity Card -->
+      <div class="rg-card mb-3">
+        <div class="rg-card-body">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="rg-severity-badge" id="severityBadge">—</div>
+            <div>
+              <div class="fw-bold fs-5" id="resultClassName">—</div>
+              <small class="text-muted">Confidence: <strong id="resultConfidence">—</strong></small>
+            </div>
+          </div>
+          <div class="alert mb-0 border-0 rounded-3" id="adviceBox">
+            <i class="bi bi-info-circle-fill me-2"></i>
+            <span id="adviceText">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Probability Chart -->
+      <div class="rg-card mb-3">
+        <div class="rg-card-header">
+          <span><i class="bi bi-bar-chart-fill me-2"></i>Class Probabilities</span>
+        </div>
+        <div class="rg-card-body">
+          <canvas id="probChart" height="140"></canvas>
+        </div>
+      </div>
+
+      <!-- Diagnostic Focus Map -->
+      <div class="rg-card mb-3" id="gradcamCard">
+        <div class="rg-card-header">
+          <span><i class="bi bi-eye-fill me-2"></i>Diagnostic Focus Map</span>
+          <small class="text-muted">Highlighted regions driving the severity assessment</small>
+        </div>
+        <div class="rg-card-body text-center">
+          <img id="gradcamImg" class="img-fluid rounded-3" style="max-height:300px" alt="Diagnostic focus map"/>
+          <p class="text-muted small mt-2 mb-0">Red/yellow = high clinical attention · Blue = low attention</p>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="d-flex gap-2 flex-wrap">
+        <a id="viewReportBtn" href="#" class="btn btn-primary">
+          <i class="bi bi-file-earmark-text-fill me-2"></i>View Full Report
+        </a>
+        <a href="{{ url_for('scans.history') }}" class="btn btn-outline-secondary">
+          <i class="bi bi-clock-history me-2"></i>View History
+        </a>
+        <button onclick="resetScan()" class="btn btn-outline-secondary">
+          <i class="bi bi-arrow-counterclockwise me-2"></i>New Scan
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/scan.js') }}"></script>
+{% endblock %}

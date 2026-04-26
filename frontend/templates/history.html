@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% block title %}Scan History{% endblock %}
+{% block page_title %}<i class="bi bi-clock-history me-2 text-primary"></i>Scan History{% endblock %}
+
+{% block content %}
+<div class="mt-3">
+
+  <!-- Filter / Search bar -->
+  <div class="rg-card mb-4">
+    <div class="rg-card-body d-flex flex-wrap gap-3 align-items-center">
+      <input type="text" id="searchInput" class="form-control" style="max-width:260px"
+             placeholder="Search by date or result…" oninput="filterScans()"/>
+      <select id="gradeFilter" class="form-select" style="max-width:200px" onchange="filterScans()">
+        <option value="">All grades</option>
+        <option value="0">No DR</option>
+        <option value="1">Mild DR</option>
+        <option value="2">Moderate DR</option>
+        <option value="3">Severe DR</option>
+        <option value="4">Proliferative DR</option>
+      </select>
+      <select id="eyeFilter" class="form-select" style="max-width:160px" onchange="filterScans()">
+        <option value="">Both eyes</option>
+        <option value="left">Left Eye</option>
+        <option value="right">Right Eye</option>
+      </select>
+      <span class="text-muted ms-auto small" id="resultCount">
+        {{ scans.total }} scan{{ 's' if scans.total != 1 else '' }}
+      </span>
+    </div>
+  </div>
+
+  {% if scans.items %}
+
+  <!-- Scan Cards Grid -->
+  <div id="scanGrid" class="row g-3">
+    {% for scan in scans.items %}
+    <div class="col-md-6 col-xl-4 scan-card-wrapper"
+         data-grade="{{ scan.predicted_class }}"
+         data-eye="{{ scan.eye_side or '' }}"
+         data-text="{{ scan.created_at.strftime('%b %d %Y') }} {{ scan.class_name }}">
+      <div class="rg-scan-card">
+
+        <!-- Header stripe -->
+        <div class="rg-scan-card-stripe" style="background:{{ scan.severity_color }}"></div>
+
+        <div class="rg-scan-card-body">
+          <div class="d-flex align-items-start justify-content-between mb-2">
+            <div>
+              <span class="rg-badge"
+                    style="background:{{ scan.severity_color }}22; color:{{ scan.severity_color }}; border:1px solid {{ scan.severity_color }}44">
+                {{ scan.class_name }}
+              </span>
+              {% if scan.demo_mode %}
+              <span class="badge bg-warning-subtle text-warning ms-1">simulation</span>
+              {% endif %}
+            </div>
+            <small class="text-muted">{{ scan.created_at.strftime("%b %d, %Y") }}</small>
+          </div>
+
+          <!-- Thumbnail + details -->
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <img src="/uploads/{{ scan.filename }}"
+                 class="rg-scan-thumb rounded-2"
+                 alt="Retinal scan"
+                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2256%22 height=%2256%22 fill=%22%23dee2e6%22 viewBox=%220 0 16 16%22%3E%3Cpath d=%22M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z%22/%3E%3Cpath d=%22M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z%22/%3E%3C/svg%3E'"/>
+            <div class="flex-grow-1 min-w-0">
+              <div class="d-flex justify-content-between mb-1">
+                <small class="text-muted fw-medium">Confidence</small>
+                <small class="fw-bold" style="color:{{ scan.severity_color }}">{{ scan.confidence }}%</small>
+              </div>
+              <div class="progress mb-2" style="height:5px">
+                <div class="progress-bar" style="width:{{ scan.confidence }}%; background:{{ scan.severity_color }}"></div>
+              </div>
+              {% if scan.eye_side %}
+              <small class="text-muted"><i class="bi bi-eye me-1"></i>{{ scan.eye_side.title() }} Eye</small>
+              {% endif %}
+            </div>
+          </div>
+
+          {% if scan.doctor_notes %}
+          <p class="text-muted small mb-3 rg-notes-preview">
+            <i class="bi bi-chat-quote me-1"></i>{{ scan.doctor_notes[:80] }}{% if scan.doctor_notes|length > 80 %}…{% endif %}
+          </p>
+          {% endif %}
+
+          <div class="d-flex gap-2">
+            <a href="{{ url_for('scans.result', scan_id=scan.id) }}" class="btn btn-sm btn-primary flex-fill">
+              <i class="bi bi-eye me-1"></i>View Report
+            </a>
+            <form method="POST" action="{{ url_for('scans.delete_scan', scan_id=scan.id) }}"
+                  onsubmit="return confirm('Delete this scan?')">
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Pagination -->
+  {% if scans.pages > 1 %}
+  <nav class="mt-4">
+    <ul class="pagination justify-content-center">
+      {% if scans.has_prev %}
+      <li class="page-item">
+        <a class="page-link" href="{{ url_for('scans.history', page=scans.prev_num) }}">
+          <i class="bi bi-chevron-left"></i> Previous
+        </a>
+      </li>
+      {% endif %}
+      {% for p in scans.iter_pages() %}
+        {% if p %}
+        <li class="page-item {% if p == scans.page %}active{% endif %}">
+          <a class="page-link" href="{{ url_for('scans.history', page=p) }}">{{ p }}</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled"><span class="page-link">…</span></li>
+        {% endif %}
+      {% endfor %}
+      {% if scans.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="{{ url_for('scans.history', page=scans.next_num) }}">
+          Next <i class="bi bi-chevron-right"></i>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+
+  {% else %}
+  <div class="rg-empty-state py-5 text-center">
+    <i class="bi bi-camera fs-1 text-muted"></i>
+    <h5 class="mt-3">No scans yet</h5>
+    <p class="text-muted">Upload your first retinal image to get started.</p>
+    <a href="{{ url_for('scans.new_scan') }}" class="btn btn-primary mt-2">
+      <i class="bi bi-camera-fill me-2"></i>New Scan
+    </a>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  function filterScans() {
+    const text  = document.getElementById("searchInput").value.toLowerCase();
+    const grade = document.getElementById("gradeFilter").value;
+    const eye   = document.getElementById("eyeFilter").value;
+
+    const cards = document.querySelectorAll(".scan-card-wrapper");
+    let visible = 0;
+
+    cards.forEach(card => {
+      const matchText  = !text  || card.dataset.text.toLowerCase().includes(text);
+      const matchGrade = !grade || card.dataset.grade === grade;
+      const matchEye   = !eye   || card.dataset.eye === eye;
+      const show = matchText && matchGrade && matchEye;
+      card.style.display = show ? "" : "none";
+      if (show) visible++;
+    });
+
+    document.getElementById("resultCount").textContent = `${visible} scan${visible !== 1 ? "s" : ""}`;
+  }
+</script>
+{% endblock %}

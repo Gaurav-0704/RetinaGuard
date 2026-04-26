@@ -1,0 +1,51 @@
+================================================================================
+  RETINOGUARD — COPYRIGHT NOTICE
+================================================================================
+
+  Software Name : RetinaGuard
+  Version       : 1.0.0
+  Copyright     : (c) 2024 Gaurav Singh Thakur
+  All Rights Reserved.
+
+--------------------------------------------------------------------------------
+
+  This software and all associated files, including but not limited to source
+  code, compiled binaries, templates, stylesheets, scripts, documentation,
+  database schemas, configuration files, and design assets, are the original
+  creative and intellectual work of Gaurav Singh Thakur.
+
+  No part of this work may be copied, reproduced, distributed, modified,
+  sub-licensed, sold, or used in derivative works without the express prior
+  written permission of the copyright holder.
+
+  For licensing enquiries, please contact the author directly.
+
+--------------------------------------------------------------------------------
+
+  THIRD-PARTY COMPONENTS
+  The following open-source libraries are used in this project and are subject
+  to their own respective licenses:
+
+    - Flask             (BSD-3-Clause)         https://flask.palletsprojects.com
+    - Flask-SQLAlchemy  (BSD-3-Clause)         https://flask-sqlalchemy.palletsprojects.com
+    - Flask-Login       (MIT)                  https://flask-login.readthedocs.io
+    - PyTorch           (BSD-3-Clause)         https://pytorch.org
+    - torchvision       (BSD-3-Clause)         https://pytorch.org/vision
+    - OpenCV            (Apache-2.0)           https://opencv.org
+    - Pillow            (HPND)                 https://python-pillow.org
+    - scikit-learn      (BSD-3-Clause)         https://scikit-learn.org
+    - NumPy             (BSD-3-Clause)         https://numpy.org
+    - Pandas            (BSD-3-Clause)         https://pandas.pydata.org
+    - Bootstrap 5       (MIT)                  https://getbootstrap.com
+    - Bootstrap Icons   (MIT)                  https://icons.getbootstrap.com
+    - Chart.js          (MIT)                  https://www.chartjs.org
+    - Inter Font        (OFL-1.1)              https://rsms.me/inter
+
+  Use of these libraries does not transfer any rights to the RetinaGuard
+  application code itself, which remains fully proprietary.
+
+--------------------------------------------------------------------------------
+
+  Copyright (c) 2024 Gaurav Singh Thakur. All Rights Reserved.
+
+================================================================================
