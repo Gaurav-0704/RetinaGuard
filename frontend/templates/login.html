@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block auth_content %}
+<div class="rg-auth-page">
+  <div class="rg-auth-left d-none d-lg-flex">
+    <div class="text-center text-white p-5">
+      <div class="rg-logo-large mb-4">
+        <i class="bi bi-eye-fill"></i>
+      </div>
+      <h1 class="display-5 fw-bold mb-3">RetinaGuard</h1>
+      <p class="lead mb-4 opacity-90">Diabetic Retinopathy<br>Screening &amp; Monitoring</p>
+      <div class="rg-feature-list text-start mt-5">
+        <div class="d-flex align-items-center mb-3">
+          <div class="rg-feature-icon me-3"><i class="bi bi-cpu-fill"></i></div>
+          <div><strong>Advanced Screening Engine</strong><br><small class="opacity-75">Clinically-validated severity grading</small></div>
+        </div>
+        <div class="d-flex align-items-center mb-3">
+          <div class="rg-feature-icon me-3"><i class="bi bi-eye-fill"></i></div>
+          <div><strong>Diagnostic Focus Maps</strong><br><small class="opacity-75">Visual region analysis for every scan</small></div>
+        </div>
+        <div class="d-flex align-items-center mb-3">
+          <div class="rg-feature-icon me-3"><i class="bi bi-graph-up-arrow"></i></div>
+          <div><strong>Trend Tracking</strong><br><small class="opacity-75">Monitor progression over time</small></div>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="rg-feature-icon me-3"><i class="bi bi-shield-check-fill"></i></div>
+          <div><strong>Secure &amp; Private</strong><br><small class="opacity-75">Your data stays yours</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rg-auth-right d-flex align-items-center justify-content-center">
+    <div class="rg-auth-form-container">
+      <!-- Mobile logo -->
+      <div class="d-lg-none text-center mb-4">
+        <div class="rg-logo-sm mx-auto mb-2"><i class="bi bi-eye-fill"></i></div>
+        <h4 class="fw-bold text-primary">RetinaGuard</h4>
+      </div>
+
+      <h3 class="fw-bold mb-1">Welcome back</h3>
+      <p class="text-muted mb-4">Sign in to your account to continue</p>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endwith %}
+
+      <form method="POST" action="{{ url_for('auth.login') }}">
+        <div class="mb-3">
+          <label class="form-label fw-medium">Email address</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope-fill text-muted"></i></span>
+            <input type="email" name="email" class="form-control" placeholder="you@example.com" required autofocus/>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <label class="form-label fw-medium mb-0">Password</label>
+          </div>
+          <div class="input-group mt-1">
+            <span class="input-group-text"><i class="bi bi-lock-fill text-muted"></i></span>
+            <input type="password" name="password" id="passwordInput" class="form-control" placeholder="••••••••" required/>
+            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+              <i class="bi bi-eye" id="toggleIcon"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-check mb-4">
+          <input class="form-check-input" type="checkbox" name="remember" id="rememberMe"/>
+          <label class="form-check-label text-muted" for="rememberMe">Remember me for 8 hours</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">
+          <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+        </button>
+      </form>
+
+      <hr class="my-4"/>
+      <p class="text-center text-muted">
+        Don't have an account?
+        <a href="{{ url_for('auth.register') }}" class="text-primary fw-semibold text-decoration-none">Create one →</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById("togglePassword").addEventListener("click", function() {
+    const input = document.getElementById("passwordInput");
+    const icon  = document.getElementById("toggleIcon");
+    if (input.type === "password") {
+      input.type = "text";
+      icon.className = "bi bi-eye-slash";
+    } else {
+      input.type = "password";
+      icon.className = "bi bi-eye";
+    }
+  });
+</script>
+{% endblock %}

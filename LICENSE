@@ -1,21 +1,153 @@
-MIT License
+RETINOGUARD PROPRIETARY SOFTWARE LICENSE
+=========================================
 
-Copyright (c) 2026 [Your Name]
+Copyright (c) 2024 Gaurav Singh Thakur, Niharika Raghunandan
+All Rights Reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+IMPORTANT — READ CAREFULLY BEFORE USING, COPYING, OR DISTRIBUTING THIS SOFTWARE.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+This software, "RetinaGuard," including all source code, object code, documentation,
+design assets, data schemas, configuration files, templates, and associated materials
+(collectively, the "Software"), is the exclusive intellectual property of
+Gaurav Singh Thakur and Niharika Raghunandan (collectively, "the Authors").
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ACADEMIC ORIGIN
+RetinaGuard is the extended development of a diabetic retinopathy detection system
+originally conceived and built jointly by Gaurav Singh Thakur and Niharika Raghunandan
+as part of their undergraduate research. This platform represents the continued
+evolution of that shared academic work into a full-stack clinical screening application.
+
+By accessing, viewing, cloning, forking, downloading, or otherwise obtaining any
+portion of this Software, you agree to be bound by the terms of this License.
+If you do not agree to these terms, you must immediately delete all copies of the
+Software in your possession.
+
+────────────────────────────────────────────────────────────────────────────────
+1. GRANT OF RIGHTS
+────────────────────────────────────────────────────────────────────────────────
+
+Subject to the terms and conditions of this License, the Authors grant you a
+LIMITED, NON-EXCLUSIVE, NON-TRANSFERABLE, REVOCABLE right to:
+
+  (a) VIEW the source code of this Software solely for educational or
+      evaluative purposes.
+
+No other rights are granted. All rights not expressly granted herein are
+reserved by the Authors.
+
+────────────────────────────────────────────────────────────────────────────────
+2. RESTRICTIONS
+────────────────────────────────────────────────────────────────────────────────
+
+You are expressly PROHIBITED from, without the prior written consent of the Authors:
+
+  (a) COPYING, reproducing, or duplicating any portion of the Software in
+      whole or in part, by any means, for any purpose.
+
+  (b) DISTRIBUTING, publishing, sub-licensing, selling, renting, leasing,
+      lending, or otherwise transferring the Software or any derivative
+      thereof to any third party.
+
+  (c) MODIFYING, translating, adapting, or creating derivative works based
+      upon the Software or any portion thereof.
+
+  (d) REVERSE ENGINEERING, disassembling, decompiling, or otherwise
+      attempting to derive the source code of any compiled component of
+      the Software.
+
+  (e) USING the Software, in whole or in part, in any commercial product,
+      service, project, or application — whether for profit or not-for-profit —
+      without express written permission from the Authors.
+
+  (f) REMOVING, altering, or obscuring any copyright notice, license notice,
+      proprietary legend, or attribution present in or on the Software.
+
+  (g) CLAIMING authorship or ownership of the Software, or representing the
+      Software as your own work.
+
+  (h) TRAINING, fine-tuning, or otherwise using the Software or its components
+      to build, improve, or derive any machine learning model, dataset,
+      or automated system.
+
+────────────────────────────────────────────────────────────────────────────────
+3. INTELLECTUAL PROPERTY
+────────────────────────────────────────────────────────────────────────────────
+
+The Software and all copies thereof, including any modifications or derivative
+works that you may be authorised to create under a separate written agreement,
+are and shall remain the exclusive joint property of Gaurav Singh Thakur and
+Niharika Raghunandan.
+
+This License does not convey to you any title or ownership interest in or to
+the Software, any associated patents, trademarks, or any other intellectual
+property rights.
+
+────────────────────────────────────────────────────────────────────────────────
+4. PORTFOLIO & ACADEMIC USE
+────────────────────────────────────────────────────────────────────────────────
+
+The Authors have made this Software publicly visible on a source-code hosting
+platform for the sole purpose of demonstrating their shared technical work in a
+professional portfolio context. This visibility does NOT constitute an open-
+source release, a public domain dedication, or any waiver of the Authors'
+rights under this License or applicable copyright law.
+
+You may REFERENCE this Software in academic papers, blog posts, or technical
+discussions provided that:
+
+  (a) Full attribution is given:
+      "RetinaGuard by Gaurav Singh Thakur, Niharika Raghunandan."
+  (b) A link to the original repository is included.
+  (c) No portion of the source code is reproduced.
+
+────────────────────────────────────────────────────────────────────────────────
+5. NO WARRANTY
+────────────────────────────────────────────────────────────────────────────────
+
+THE SOFTWARE IS PROVIDED "AS IS," WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. IN NO EVENT SHALL
+THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN
+AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+THIS SOFTWARE IS NOT INTENDED TO REPLACE PROFESSIONAL MEDICAL DIAGNOSIS.
+ALL SCREENING RESULTS MUST BE REVIEWED BY A QUALIFIED HEALTHCARE PROFESSIONAL.
+THE AUTHORS ACCEPT NO LIABILITY FOR CLINICAL DECISIONS BASED ON THIS SOFTWARE.
+
+────────────────────────────────────────────────────────────────────────────────
+6. TERMINATION
+────────────────────────────────────────────────────────────────────────────────
+
+Any breach of the terms of this License immediately and automatically terminates
+your rights under Section 1. Upon termination, you must destroy all copies of
+the Software in your possession or control.
+
+The Authors reserve the right to pursue all available legal remedies for
+infringement of this License, including but not limited to injunctive relief
+and claims for damages.
+
+────────────────────────────────────────────────────────────────────────────────
+7. GOVERNING LAW
+────────────────────────────────────────────────────────────────────────────────
+
+This License shall be governed by and construed in accordance with the laws of
+India, without regard to its conflict-of-law provisions. Any disputes arising
+under or in connection with this License shall be subject to the exclusive
+jurisdiction of the courts of India.
+
+────────────────────────────────────────────────────────────────────────────────
+8. CONTACT
+────────────────────────────────────────────────────────────────────────────────
+
+For permissions, licensing enquiries, or other requests, contact either author:
+
+  Gaurav Singh Thakur
+  GitHub: https://github.com/Gaurav-0704
+
+  Niharika Raghunandan
+
+────────────────────────────────────────────────────────────────────────────────
+
+Copyright (c) 2024 Gaurav Singh Thakur, Niharika Raghunandan. All Rights Reserved.
+Unauthorised use, reproduction, or distribution is strictly prohibited.

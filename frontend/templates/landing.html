@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RetinaGuard — Diabetic Retinopathy Screening Platform</title>
+  <meta name="description" content="RetinaGuard provides clinically-guided diabetic retinopathy screening, patient management, and longitudinal eye health monitoring for healthcare professionals and patients."/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="/static/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="rg-landing">
+
+  <!-- ── Sticky Navigation ──────────────────────────────────── -->
+  <nav class="rg-landing-nav">
+    <div class="rg-landing-logo">
+      <div class="rg-landing-logo-icon"><i class="bi bi-eye-fill"></i></div>
+      <span class="rg-landing-logo-text">RetinaGuard</span>
+    </div>
+    <div class="d-flex align-items-center gap-3">
+      <a href="#features" class="d-none d-md-block text-muted fw-medium" style="font-size:.875rem">Features</a>
+      <a href="#how-it-works" class="d-none d-md-block text-muted fw-medium" style="font-size:.875rem">How It Works</a>
+      <a href="/login" class="btn btn-outline-secondary btn-sm fw-semibold">Sign In</a>
+      <a href="/register" class="btn btn-primary btn-sm fw-semibold px-3">Get Started</a>
+    </div>
+  </nav>
+
+  <!-- ── Hero ───────────────────────────────────────────────── -->
+  <section class="rg-hero">
+    <!-- Left: Copy -->
+    <div>
+      <div class="rg-hero-eyebrow">
+        <i class="bi bi-shield-check-fill"></i>
+        Clinically-Guided Retinal Screening
+      </div>
+      <h1>
+        Protecting Vision.<br/>
+        <span>Detecting Retinopathy</span><br/>
+        Earlier.
+      </h1>
+      <p class="rg-hero-sub">
+        RetinaGuard is a comprehensive platform for diabetic retinopathy screening,
+        patient record management, and longitudinal eye health tracking — built for
+        clinics, patients, and healthcare teams.
+      </p>
+      <div class="rg-hero-actions">
+        <a href="/register" class="btn btn-primary btn-lg fw-semibold px-4">
+          <i class="bi bi-person-plus-fill me-2"></i>Create Free Account
+        </a>
+        <a href="/login" class="btn btn-outline-secondary btn-lg fw-semibold px-4">
+          <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+        </a>
+      </div>
+      <div class="d-flex align-items-center gap-3 mt-4 flex-wrap">
+        <div class="d-flex align-items-center gap-1 text-muted" style="font-size:.8rem">
+          <i class="bi bi-lock-fill text-success"></i> HIPAA-aligned data handling
+        </div>
+        <div class="d-flex align-items-center gap-1 text-muted" style="font-size:.8rem">
+          <i class="bi bi-check-circle-fill text-primary"></i> 5-level DR grading
+        </div>
+        <div class="d-flex align-items-center gap-1 text-muted" style="font-size:.8rem">
+          <i class="bi bi-graph-up-arrow text-warning"></i> Trend monitoring
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Visual -->
+    <div class="rg-hero-visual">
+      <div class="rg-retina-frame">
+        <div class="rg-scan-ring"></div>
+        <div class="rg-scan-ring"></div>
+        <div class="rg-scan-ring"></div>
+        <div class="rg-retina-scan-lines"></div>
+        <i class="bi bi-eye rg-retina-icon"></i>
+      </div>
+      <!-- Floating chips -->
+      <div class="rg-float-chip">
+        <div class="rg-float-dot" style="background:#10b981"></div>
+        <span>No DR Detected</span>
+      </div>
+      <div class="rg-float-chip">
+        <i class="bi bi-graph-up text-primary"></i>
+        <span>Trend: Stable</span>
+      </div>
+      <div class="rg-float-chip">
+        <i class="bi bi-shield-check-fill text-success"></i>
+        <span>Grade 0 — Clear</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Stats Strip ─────────────────────────────────────────── -->
+  <div class="rg-stats-strip">
+    <div class="rg-strip-stat">
+      <div class="rg-strip-stat-val">5</div>
+      <div class="rg-strip-stat-lbl">DR Severity Grades</div>
+    </div>
+    <div class="rg-strip-stat">
+      <div class="rg-strip-stat-val">100%</div>
+      <div class="rg-strip-stat-lbl">Automated Screening</div>
+    </div>
+    <div class="rg-strip-stat">
+      <div class="rg-strip-stat-val">Full</div>
+      <div class="rg-strip-stat-lbl">Patient History Tracking</div>
+    </div>
+    <div class="rg-strip-stat">
+      <div class="rg-strip-stat-val">Real-time</div>
+      <div class="rg-strip-stat-lbl">Doctor-Patient Portal</div>
+    </div>
+  </div>
+
+  <!-- ── Features ───────────────────────────────────────────── -->
+  <section class="rg-features" id="features">
+    <span class="rg-section-tag">Platform Features</span>
+    <h2 class="rg-section-title">Everything you need for retinal care</h2>
+    <div class="rg-features-grid">
+
+      <div class="rg-feature-card">
+        <div class="rg-feature-icon-wrap" style="background:#e0f2fe; color:#0891b2">
+          <i class="bi bi-camera-fill"></i>
+        </div>
+        <h3>Retinal Image Screening</h3>
+        <p>Upload fundus photographs and receive an automated diabetic retinopathy severity assessment using our clinically-validated screening engine.</p>
+      </div>
+
+      <div class="rg-feature-card">
+        <div class="rg-feature-icon-wrap" style="background:#fce7f3; color:#db2777">
+          <i class="bi bi-eye-fill"></i>
+        </div>
+        <h3>Diagnostic Focus Mapping</h3>
+        <p>Visual overlay highlighting the specific retinal regions driving each severity assessment — giving clinicians clear, interpretable evidence.</p>
+      </div>
+
+      <div class="rg-feature-card">
+        <div class="rg-feature-icon-wrap" style="background:#dcfce7; color:#16a34a">
+          <i class="bi bi-graph-up-arrow"></i>
+        </div>
+        <h3>Longitudinal Trend Tracking</h3>
+        <p>Monitor DR progression across multiple visits with automated trend charts — catch deterioration early and adjust treatment plans accordingly.</p>
+      </div>
+
+      <div class="rg-feature-card">
+        <div class="rg-feature-icon-wrap" style="background:#fef9c3; color:#ca8a04">
+          <i class="bi bi-people-fill"></i>
+        </div>
+        <h3>Doctor–Patient Portal</h3>
+        <p>Full two-sided portal — patients manage their own records while doctors get a complete clinical overview including high-risk alerts and inline note-taking.</p>
+      </div>
+
+      <div class="rg-feature-card">
+        <div class="rg-feature-icon-wrap" style="background:#ede9fe; color:#7c3aed">
+          <i class="bi bi-clock-history"></i>
+        </div>
+        <h3>Complete Scan History</h3>
+        <p>Every screening is stored with the original image, severity result, confidence level, clinical notes, and timestamp — fully searchable and filterable.</p>
+      </div>
+
+      <div class="rg-feature-card">
+        <div class="rg-feature-icon-wrap" style="background:#ffedd5; color:#ea580c">
+          <i class="bi bi-exclamation-triangle-fill"></i>
+        </div>
+        <h3>High-Risk Alerts</h3>
+        <p>Automatic escalation flags for Severe and Proliferative DR cases. Doctors are immediately notified of patients requiring urgent ophthalmologist referral.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── How It Works ───────────────────────────────────────── -->
+  <section class="rg-how" id="how-it-works">
+    <div class="rg-how-inner">
+      <span class="rg-section-tag">Simple Process</span>
+      <h2 class="rg-section-title">How RetinaGuard works</h2>
+      <div class="rg-steps">
+        <div class="rg-step">
+          <div class="rg-step-num">1</div>
+          <h4>Create Your Account</h4>
+          <p>Register as a patient or doctor. Complete your medical profile in under 2 minutes.</p>
+        </div>
+        <div class="rg-step">
+          <div class="rg-step-num">2</div>
+          <h4>Upload Retinal Image</h4>
+          <p>Drag and drop a fundus photograph. Supports PNG, JPG, TIFF and BMP formats up to 16 MB.</p>
+        </div>
+        <div class="rg-step">
+          <div class="rg-step-num">3</div>
+          <h4>Receive Screening Result</h4>
+          <p>The screening engine analyses the image and returns a 5-level DR grade with a diagnostic focus map.</p>
+        </div>
+        <div class="rg-step">
+          <div class="rg-step-num">4</div>
+          <h4>Track &amp; Share</h4>
+          <p>Results are saved automatically. Your assigned doctor can review and annotate every report.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DR Grading Reference ───────────────────────────────── -->
+  <section style="padding:80px 5%; background:#ffffff; max-width:1200px; margin:0 auto;">
+    <span class="rg-section-tag">Clinical Reference</span>
+    <h2 class="rg-section-title">5-Level DR Grading Scale</h2>
+    <div class="row g-3 justify-content-center">
+      {% set grades = [
+        ("0", "No DR",            "#10b981", "No visible signs of diabetic retinopathy. Annual screening recommended."),
+        ("1", "Mild DR",          "#f59e0b", "Microaneurysms only. Monitor closely; revisit in 9-12 months."),
+        ("2", "Moderate DR",      "#f97316", "More than microaneurysms. Ophthalmologist referral; revisit in 6 months."),
+        ("3", "Severe DR",        "#ef4444", "Extensive retinal changes. Urgent specialist referral required."),
+        ("4", "Proliferative DR", "#7f1d1d", "Neovascularisation present. Immediate intervention needed."),
+      ] %}
+      {% for num, name, color, desc in grades %}
+      <div class="col-sm-6 col-lg" style="min-width:180px">
+        <div class="text-center p-3 rounded-3 h-100" style="border:2px solid {{ color }}20; background:{{ color }}08">
+          <div class="fw-black fs-2 mb-1" style="color:{{ color }}; font-weight:800">{{ num }}</div>
+          <div class="fw-bold mb-2" style="color:{{ color }}">{{ name }}</div>
+          <p class="text-muted mb-0" style="font-size:.78rem; line-height:1.5">{{ desc }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- ── CTA ────────────────────────────────────────────────── -->
+  <section class="rg-cta">
+    <div style="max-width:600px; margin:0 auto">
+      <h2>Start screening today</h2>
+      <p>Join healthcare professionals using RetinaGuard to catch diabetic retinopathy before it causes irreversible vision loss.</p>
+      <div class="d-flex gap-3 justify-content-center flex-wrap">
+        <a href="/register" class="btn btn-primary btn-lg fw-semibold px-5">
+          <i class="bi bi-person-plus-fill me-2"></i>Create Account — Free
+        </a>
+        <a href="/login" class="btn btn-outline-light btn-lg fw-semibold px-4">Sign In</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ─────────────────────────────────────────────── -->
+  <footer class="rg-landing-footer">
+    <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
+      <div class="rg-landing-logo-icon" style="width:22px;height:22px;font-size:.7rem"><i class="bi bi-eye-fill"></i></div>
+      <span class="fw-semibold" style="color:rgba(255,255,255,.5)">RetinaGuard</span>
+    </div>
+    <p class="mb-1">Copyright &copy; 2024 Gaurav Singh Thakur, Niharika Raghunandan. All Rights Reserved.</p>
+    <p class="mb-0">Unauthorised use, reproduction, or distribution is strictly prohibited.</p>
+  </footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
