@@ -272,11 +272,6 @@ See [LICENSE](LICENSE) for the full terms.
 
 RetinaGuard is built on a diabetic retinopathy detection system originally developed jointly by both authors during their undergraduate research. This platform extends that shared academic foundation into a full-stack clinical screening application.
 
-| | Name | Role |
-|---|---|---|
-| 🔬 | **Gaurav Singh Thakur** | Co-author · Full-stack development, screening engine, platform architecture |
-| 🔬 | **Niharika Raghunandan** | Co-author · Original DR research, academic foundation, clinical knowledge |
-
 **Gaurav Singh Thakur**
 GitHub: [https://github.com/Gaurav-0704](https://github.com/Gaurav-0704)
 
