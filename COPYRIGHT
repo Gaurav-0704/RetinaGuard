@@ -4,21 +4,31 @@
 
   Software Name : RetinaGuard
   Version       : 1.0.0
-  Copyright     : (c) 2024 Gaurav Singh Thakur
+  Copyright     : (c) 2024 Gaurav Singh Thakur & Niharika Raghunandan
   All Rights Reserved.
+
+--------------------------------------------------------------------------------
+
+  ACADEMIC ORIGIN
+
+  RetinaGuard evolved from a diabetic retinopathy detection system originally
+  conceived and developed jointly by Gaurav Singh Thakur and Niharika Raghunandan
+  during their undergraduate studies. This platform represents the continued
+  advancement of that shared research into a complete clinical screening
+  application.
 
 --------------------------------------------------------------------------------
 
   This software and all associated files, including but not limited to source
   code, compiled binaries, templates, stylesheets, scripts, documentation,
   database schemas, configuration files, and design assets, are the original
-  creative and intellectual work of Gaurav Singh Thakur.
+  creative and intellectual work of Gaurav Singh Thakur and Niharika Raghunandan.
 
   No part of this work may be copied, reproduced, distributed, modified,
   sub-licensed, sold, or used in derivative works without the express prior
-  written permission of the copyright holder.
+  written permission of both copyright holders.
 
-  For licensing enquiries, please contact the author directly.
+  For licensing enquiries, please contact either author directly.
 
 --------------------------------------------------------------------------------
 
@@ -46,6 +56,6 @@
 
 --------------------------------------------------------------------------------
 
-  Copyright (c) 2024 Gaurav Singh Thakur. All Rights Reserved.
+  Copyright (c) 2024 Gaurav Singh Thakur & Niharika Raghunandan. All Rights Reserved.
 
 ================================================================================
