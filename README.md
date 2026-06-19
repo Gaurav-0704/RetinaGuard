@@ -323,11 +323,6 @@ I built RetinaGuard as an extension of a diabetic retinopathy detection system N
 and I developed together during our undergraduate research. This platform takes that
 shared academic foundation and extends it into a full-stack clinical screening application.
 
-| | Name | Role |
-|---|---|---|
-| 🔬 | **Gaurav Singh Thakur** | Co-author · Full-stack development, screening engine, platform architecture |
-| 🔬 | **Niharika Raghunandan** | Co-author · Original DR research, academic foundation, clinical knowledge |
-
 **Gaurav Singh Thakur**
 GitHub: [https://github.com/Gaurav-0704](https://github.com/Gaurav-0704)
 
