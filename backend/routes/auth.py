@@ -1,5 +1,10 @@
 # ============================================================
 #  backend/routes/auth.py — Login, Register, Logout
+#
+#  I keep auth logic deliberately thin: Werkzeug handles
+#  password hashing, Flask-Login manages sessions. The register
+#  route enforces minimum password length and uniqueness before
+#  touching the DB.
 # ============================================================
 
 from datetime import datetime

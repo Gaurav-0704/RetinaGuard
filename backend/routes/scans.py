@@ -1,5 +1,9 @@
 # ============================================================
 #  backend/routes/scans.py — Scan Upload, Screening & History
+#
+#  I handle the full scan lifecycle here: upload validation,
+#  inference dispatch (real or demo), DB persistence, result
+#  rendering, history pagination, deletion, and doctor notes.
 # ============================================================
 
 import os

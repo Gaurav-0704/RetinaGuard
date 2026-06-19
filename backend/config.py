@@ -1,16 +1,39 @@
 # ============================================================
 #  backend/config.py — Flask App Configuration
+#
+#  I keep all Flask settings here. DevelopmentConfig is the
+#  default; ProductionConfig tightens cookies and requires
+#  SECRET_KEY to be set in the environment.
 # ============================================================
 
 import os
+import secrets
+import logging
+
+logger = logging.getLogger(__name__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.dirname(BASE_DIR)
 
 
+def _get_secret_key():
+    key = os.environ.get("SECRET_KEY")
+    if key:
+        return key
+    # Dev fallback: ephemeral key so the app starts without config.
+    # Every restart invalidates existing sessions — fine for local dev,
+    # unacceptable for production (set SECRET_KEY in your environment).
+    logger.warning(
+        "SECRET_KEY not set — generating a one-time ephemeral key. "
+        "Sessions will not survive server restarts. "
+        "Set SECRET_KEY in your environment before deploying."
+    )
+    return secrets.token_hex(32)
+
+
 class Config:
     # Flask
-    SECRET_KEY = os.environ.get("SECRET_KEY", "retinoguard-secret-change-in-production")
+    SECRET_KEY = _get_secret_key()
     DEBUG = False
 
     # Database (SQLite — easy to swap to PostgreSQL in production)

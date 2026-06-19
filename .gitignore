@@ -1,0 +1,52 @@
+# ── Database ──────────────────────────────────────────────────
+retinoguard.db
+*.db
+*.sqlite
+*.sqlite3
+
+# ── User-uploaded images (keep the folder, not the contents) ──
+uploads/*
+!uploads/.gitkeep
+
+# ── Trained model weights ──────────────────────────────────────
+backend/weights/
+ml/weights/
+*.pth
+*.pt
+*.ckpt
+
+# ── Environment / secrets ─────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Python ────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# ── Virtual environments ──────────────────────────────────────
+venv/
+.venv/
+env/
+ENV/
+
+# ── IDE / editor ──────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ── Pytest / coverage ─────────────────────────────────────────
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml

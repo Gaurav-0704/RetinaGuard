@@ -1,5 +1,9 @@
 # ============================================================
 #  backend/models/scan.py — Scan / Report database model
+#
+#  I store the full result payload (probabilities, Grad-CAM image,
+#  advice) alongside the scan record so the result page renders
+#  entirely from the DB — no re-inference needed on subsequent views.
 # ============================================================
 
 import json

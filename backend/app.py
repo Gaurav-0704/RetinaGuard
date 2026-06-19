@@ -1,4 +1,8 @@
-# backend/app.py -- Flask Application Factory
+# backend/app.py — Flask Application Factory
+#
+# I use the factory pattern so tests can spin up isolated app instances
+# with different configs (in-memory DB, no GPU, etc.) without touching
+# the real database or uploads folder.
 
 import os
 from flask import Flask, send_from_directory

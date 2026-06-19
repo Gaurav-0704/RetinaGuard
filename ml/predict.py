@@ -1,15 +1,17 @@
 # ============================================================
 #  ml/predict.py — RetinaGuard Screening Engine + Diagnostic Focus Mapping
 #
-#  Two modes:
-#  1. REAL MODE  — uses a trained .pth checkpoint
-#  2. DEMO MODE  — returns realistic simulated results
-#     (active when no weights file is found; lets you run the
-#      full web app before training is complete)
+#  I designed predict() to operate in two modes:
 #
-#  Diagnostic focus mapping: produces a colour overlay on the retinal image
-#  showing WHICH region influenced the severity assessment most.
-#  This is critical for clinical trust and explainability.
+#  1. REAL MODE  — loads a trained .pth checkpoint and runs full
+#                  EfficientNet-B4 inference with Grad-CAM overlay.
+#  2. DEMO MODE  — returns deterministic simulated results when no
+#                  weights file is found, so the full web app is
+#                  usable without a trained model.
+#
+#  The Grad-CAM overlay highlights which retinal regions drove each
+#  severity prediction — I treat this as essential for clinical
+#  trust and explainability, not just a visual garnish.
 # ============================================================
 
 import os
@@ -56,8 +58,9 @@ def _get_model():
 
 class GradCAM:
     """
-    Diagnostic focus mapping for the screening engine.
-    Hooks the last feature block to capture region-level activation weights.
+    I hook the last EfficientNet feature block to capture gradient-weighted
+    activations, then produce a per-region importance map I can overlay on
+    the original retinal image for clinical explainability.
     """
 
     def __init__(self, model: torch.nn.Module):
@@ -121,8 +124,9 @@ def _overlay_heatmap(original_pil: Image.Image, cam: np.ndarray) -> str:
 
 def _demo_predict(image_path: str) -> dict:
     """
-    Simulate a realistic prediction when no model weights are available.
-    Probabilities are seeded from the image filename for reproducibility.
+    I seed the random number generator from the image filename so the same
+    file always produces the same simulated result — useful when reviewing
+    the app across page refreshes without a trained model.
     """
     import hashlib, random
     seed = int(hashlib.md5(image_path.encode()).hexdigest(), 16) % (2**32)

@@ -1,4 +1,8 @@
-# backend/models/user.py -- Patient/User database model
+# backend/models/user.py — Patient/Doctor/Admin user model
+#
+# I use a single User table with a `role` discriminator rather than
+# separate tables — the schema is simple enough that one table keeps
+# queries and joins minimal.
 
 from datetime import datetime
 from flask_login import UserMixin

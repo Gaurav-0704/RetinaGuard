@@ -7,11 +7,33 @@
 
 ---
 
+> ### ⚠️ Demo / Portfolio Project — No Trained Weights Included
+>
+> I built RetinaGuard as a full-stack portfolio project demonstrating clinical-grade UI,
+> role-based access control, and a production-ready PyTorch inference pipeline.
+> **No trained model weights ship with this repository.** The app runs in
+> Simulation Mode by default, generating deterministic placeholder results from image
+> filenames. All screening output shown in demos is simulated — it carries no
+> diagnostic validity and should not be interpreted as clinical output.
+> If you want real DR grading you need to train `ml/train.py` on a labelled fundus
+> dataset (e.g. EyePACS / APTOS 2019) and drop the checkpoint at
+> `backend/weights/retinoguard_best.pth`.
+
+---
+
 ## Overview
 
-RetinaGuard is a full-stack web application for automated diabetic retinopathy (DR) severity screening, longitudinal patient monitoring, and doctor–patient clinical management. It provides a five-level DR grading system aligned with the International Clinical Diabetic Retinopathy Severity Scale, combined with a visual diagnostic focus map that highlights which retinal regions contributed to each assessment.
+I built RetinaGuard as a two-sided clinical web platform for automated diabetic
+retinopathy (DR) severity screening, longitudinal patient monitoring, and
+doctor–patient management. Patients upload retinal fundus images and track their
+eye health history; clinicians get a complete dashboard with high-risk alerts,
+severity trends across visits, and inline annotation tools. The five-level DR
+grading follows the International Clinical Diabetic Retinopathy Severity Scale.
 
-The platform is built as a two-sided portal: patients upload retinal images and track their eye health history, while clinicians gain a complete dashboard view of all patients, high-risk alerts, and inline annotation tools.
+The screening engine is an EfficientNet-B4 with Grad-CAM diagnostic focus mapping —
+when real weights are loaded it produces a colour overlay that highlights which
+retinal regions drove each severity grade, which I designed for clinical
+explainability rather than pure accuracy.
 
 ---
 
@@ -20,14 +42,14 @@ The platform is built as a two-sided portal: patients upload retinal images and 
 | Feature | Description |
 |---|---|
 | **5-Level DR Grading** | Classifies retinal images as No DR / Mild / Moderate / Severe / Proliferative |
-| **Diagnostic Focus Map** | Visual heatmap overlay identifying the retinal regions driving each severity assessment |
+| **Diagnostic Focus Map** | Grad-CAM heatmap overlay identifying which retinal regions drive each severity grade |
 | **Patient Portal** | Secure login, profile, scan upload, full history, clinical advice per result |
 | **Doctor Portal** | Patient list, high-risk alerts, severity trend charts, inline notes per scan |
 | **Longitudinal Tracking** | Severity trend charts across all visits for every patient |
 | **Doctor–Patient Assignment** | Doctors are linked to specific patients; admins see all |
 | **Screening Confidence** | Confidence percentage and per-grade probability distribution for each result |
 | **Role-Based Access** | Three roles: `patient`, `doctor`, `admin` with separate views and permissions |
-| **Simulation Mode** | Full app runs without trained weights — simulated results for demonstration |
+| **Simulation Mode** | Full app runs without trained weights — placeholder results for demonstration |
 | **Public Landing Page** | Marketing-grade front page with feature overview and grading reference |
 
 ---
@@ -48,7 +70,7 @@ The platform is built as a two-sided portal: patients upload retinal images and 
 | Framework | PyTorch |
 | Architecture | EfficientNet-B4 (transfer learning) |
 | Preprocessing | CLAHE contrast enhancement + augmentation pipeline |
-| Region analysis | Gradient-weighted activation mapping |
+| Region analysis | Gradient-weighted class activation mapping (Grad-CAM) |
 | Training | AdamW + CosineAnnealingLR + early stopping |
 
 ### Frontend
@@ -89,29 +111,24 @@ RetinaGuard/
 │
 ├── frontend/
 │   ├── templates/               # Jinja2 HTML templates
-│   │   ├── base.html            # Shared layout with sidebar navigation
-│   │   ├── landing.html         # Public front page
-│   │   ├── login.html           # Sign-in page
-│   │   ├── register.html        # Registration page
-│   │   ├── dashboard.html       # Patient dashboard
-│   │   ├── scan.html            # New scan upload & live results
-│   │   ├── result.html          # Individual scan report
-│   │   ├── history.html         # Scan history grid with filters
-│   │   ├── profile.html         # Patient profile form
-│   │   ├── doctor_dashboard.html         # Doctor overview
-│   │   ├── doctor_patients.html          # Doctor patient list
-│   │   └── doctor_patient_detail.html    # Full patient clinical view
 │   └── static/
-│       ├── css/style.css        # Complete UI stylesheet
+│       ├── css/style.css
 │       └── js/
-│           ├── main.js          # Global JS (sidebar, alerts, animations)
-│           ├── scan.js          # Scan upload, progress, live result display
-│           └── charts.js        # Dashboard trend & distribution charts
+│           ├── main.js
+│           ├── scan.js
+│           └── charts.js
 │
-├── uploads/                     # Uploaded retinal images (auto-created)
-├── backend/weights/             # Trained model checkpoint (auto-created)
-│   └── retinoguard_best.pth     # Place trained weights here
+├── tests/                       # Pytest suite
+│   ├── conftest.py              # App + DB fixtures
+│   ├── test_auth.py             # Login, register, logout routes
+│   ├── test_scans.py            # Upload, result, history, delete, notes
+│   └── test_predict.py          # Inference wrapper — demo mode & dispatch
 │
+├── uploads/                     # Runtime-created; gitignored
+├── backend/weights/             # Runtime-created; gitignored
+│   └── retinoguard_best.pth     # Place your trained checkpoint here
+│
+├── .env.example                 # Template for environment variables
 ├── run.py                       # Application entry point
 ├── setup_db.py                  # Database initialisation & demo seed
 ├── requirements.txt             # Python dependencies
@@ -142,9 +159,28 @@ cd retinoguard/RetinaGuard
 pip install -r requirements.txt
 ```
 
-> **Note:** PyTorch installation may vary by platform. Visit [pytorch.org](https://pytorch.org/get-started/locally/) for the appropriate install command for your system.
+> **Note:** PyTorch installation may vary by platform.
+> Visit [pytorch.org](https://pytorch.org/get-started/locally/) for the right command for your system.
 
-### Step 3 — Initialise the database
+### Step 3 — Set environment variables
+
+Copy `.env.example` to `.env` and fill in your values:
+
+```bash
+cp .env.example .env
+```
+
+At minimum, set `SECRET_KEY` before running in any shared environment:
+
+```bash
+# generate a strong key
+python -c "import secrets; print(secrets.token_hex(32))"
+```
+
+If `SECRET_KEY` is not set, the app generates an ephemeral key at startup
+(sessions won't survive restarts — fine for local dev, not for deployment).
+
+### Step 4 — Initialise the database
 
 ```bash
 # Bare initialisation
@@ -161,7 +197,7 @@ Demo accounts created with `--demo`:
 | Patient | demo@retinoguard.com | demo1234 |
 | Doctor | admin@retinoguard.com | admin1234 |
 
-### Step 4 — Run the application
+### Step 5 — Run the application
 
 ```bash
 python run.py
@@ -171,9 +207,22 @@ Open your browser at **http://127.0.0.1:5000**
 
 ---
 
+## Running the Tests
+
+```bash
+pip install pytest
+pytest tests/ -v
+```
+
+I wrote the test suite against an in-memory SQLite database with mocked inference,
+so tests pass without a GPU, trained weights, or any uploaded images.
+
+---
+
 ## Training the Screening Engine
 
-If you have a labelled dataset of retinal fundus images, you can train the screening engine using:
+If you have a labelled dataset of retinal fundus images (I trained against the
+APTOS 2019 / EyePACS format), you can train the screening engine:
 
 ```bash
 python -m ml.train \
@@ -192,7 +241,9 @@ def456,2
 
 Where `diagnosis` is an integer 0–4 corresponding to the DR severity grade.
 
-The best checkpoint is automatically saved to `backend/weights/retinoguard_best.pth`. Once this file exists, the application switches from Simulation Mode to live screening automatically on next restart.
+The best checkpoint is automatically saved to `backend/weights/retinoguard_best.pth`.
+Once this file exists, the app switches from Simulation Mode to live screening
+automatically on next restart.
 
 ### Training Configuration
 
@@ -224,13 +275,16 @@ EARLY_STOP_PATIENCE  = 12
 
 ## Simulation Mode
 
-When no trained model weights are found at `backend/weights/retinoguard_best.pth`, the application automatically enters **Simulation Mode**. In this mode:
+When no trained weights are present at `backend/weights/retinoguard_best.pth`, the
+app runs in **Simulation Mode**. In this mode:
 
-- Results are generated deterministically from the image filename (reproducible per image).
-- A yellow banner appears on all result pages indicating simulation.
-- All other platform features (patient management, doctor portal, history, notes) work identically.
+- Results are generated deterministically from the image filename (same file → same result every time).
+- A yellow banner appears on all result pages flagging the simulation.
+- Every other platform feature — patient management, doctor portal, history, notes —
+  works identically to the real-model path.
 
-This allows full evaluation of the application without requiring a trained model.
+I included Simulation Mode so reviewers can evaluate the full application
+without needing a trained checkpoint or a GPU.
 
 ---
 
@@ -238,15 +292,10 @@ This allows full evaluation of the application without requiring a trained model
 
 | Variable | Default | Description |
 |---|---|---|
-| `SECRET_KEY` | `retinoguard-secret-change-in-production` | Flask session secret key |
+| `SECRET_KEY` | ephemeral (logged warning) | Flask session secret — **must** be set for any shared deployment |
 | `DATABASE_URL` | SQLite in project root | SQLAlchemy connection string |
 
-For production, always set a strong `SECRET_KEY`:
-
-```bash
-export SECRET_KEY="your-strong-random-secret"
-python run.py --prod
-```
+See `.env.example` for a template.
 
 ---
 
@@ -262,15 +311,17 @@ python run.py --prod
 
 ## License & Copyright
 
-This software is proprietary. Viewing is permitted; copying, distribution, modification, and commercial use are **strictly prohibited** without explicit written permission from both authors.
-
-See [LICENSE](LICENSE) for the full terms.
+This software is proprietary. Viewing is permitted; copying, distribution, modification,
+and commercial use are **strictly prohibited** without explicit written permission
+from both authors. See [LICENSE](LICENSE) for the full terms.
 
 ---
 
 ## Authors
 
-RetinaGuard is built on a diabetic retinopathy detection system originally developed jointly by both authors during their undergraduate research. This platform extends that shared academic foundation into a full-stack clinical screening application.
+I built RetinaGuard as an extension of a diabetic retinopathy detection system Niharika
+and I developed together during our undergraduate research. This platform takes that
+shared academic foundation and extends it into a full-stack clinical screening application.
 
 | | Name | Role |
 |---|---|---|
