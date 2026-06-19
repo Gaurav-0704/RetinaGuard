@@ -15,11 +15,35 @@
 > Simulation Mode by default, generating deterministic placeholder results from image
 > filenames. All screening output shown in demos is simulated — it carries no
 > diagnostic validity and should not be interpreted as clinical output.
-> If you want real DR grading you need to train `ml/train.py` on a labelled fundus
-> dataset (e.g. EyePACS / APTOS 2019) and drop the checkpoint at
-> `backend/weights/retinoguard_best.pth`.
+> **To produce real weights + verifiable metrics**, run
+> [`notebooks/train_retinaguard_colab.ipynb`](notebooks/train_retinaguard_colab.ipynb)
+> (free Colab T4, APTOS 2019, ~30-60 min). It trains, evaluates on a held-out
+> test split, and emits accuracy, per-class precision/recall/F1, one-vs-rest AUC,
+> quadratic weighted kappa, a confusion matrix and ROC curves into `docs/results/`.
+> Drop the resulting checkpoint at `backend/weights/retinoguard_best.pth` and the
+> app switches from Simulation Mode to real inference automatically.
 
 ---
+
+<!-- ========================================================================
+     AFTER you complete a training run, DELETE the Simulation-Mode warning
+     block above and UNCOMMENT the section below, pasting in the real numbers
+     from docs/results/report.md. Do NOT fill these in by hand from memory.
+     ------------------------------------------------------------------------
+## Model Results (APTOS 2019, held-out test split)
+
+| Metric | Value |
+|---|---|
+| Accuracy | 0.xxxx |
+| Quadratic Weighted Kappa | 0.xxxx |
+| Macro AUC (OvR) | 0.xxxx |
+
+Full per-class table, confusion matrix and ROC curves: see
+[docs/RESULTS.md](docs/RESULTS.md).
+
+---
+======================================================================== -->
+
 
 ## Overview
 
@@ -322,6 +346,11 @@ from both authors. See [LICENSE](LICENSE) for the full terms.
 I built RetinaGuard as an extension of a diabetic retinopathy detection system Niharika
 and I developed together during our undergraduate research. This platform takes that
 shared academic foundation and extends it into a full-stack clinical screening application.
+
+| | Name | Role |
+|---|---|---|
+| 🔬 | **Gaurav Singh Thakur** | Co-author · Full-stack development, screening engine, platform architecture |
+| 🔬 | **Niharika Raghunandan** | Co-author · Original DR research, academic foundation, clinical knowledge |
 
 **Gaurav Singh Thakur**
 GitHub: [https://github.com/Gaurav-0704](https://github.com/Gaurav-0704)

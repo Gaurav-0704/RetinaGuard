@@ -1,0 +1,39 @@
+# ============================================================
+#  RetinaGuard — ML Training / Evaluation Dependencies (pinned)
+#
+#  Use ONLY for training & evaluation (ml/train.py, ml/evaluate.py,
+#  notebooks/train_retinaguard_colab.ipynb).
+#  Install with:  pip install -r requirements-ml.txt
+#
+#  Versions pinned for reproducibility. These match a recent
+#  Colab T4 CUDA 12.x environment; on a local GPU box install the
+#  CUDA build of torch that matches your driver (see note below).
+# ============================================================
+
+# ── Deep learning ─────────────────────────────────────────────
+torch==2.3.1
+torchvision==0.18.1
+
+# ── Image processing ──────────────────────────────────────────
+Pillow==10.4.0
+opencv-python-headless==4.10.0.84
+
+# ── Data + metrics + plotting ─────────────────────────────────
+numpy==1.26.4
+pandas==2.2.2
+scikit-learn==1.5.1
+matplotlib==3.9.1
+
+# ── Dataset download ──────────────────────────────────────────
+kaggle==1.6.17
+
+# ------------------------------------------------------------------
+# NOTE on torch + CUDA:
+#   • Google Colab (T4): the pinned torch==2.3.1 works as-is.
+#   • Local NVIDIA GPU: install the matching CUDA wheel, e.g.
+#       pip install torch==2.3.1 torchvision==0.18.1 \
+#         --index-url https://download.pytorch.org/whl/cu121
+#   • CPU only (NOT recommended — training will be impractically slow):
+#       pip install torch==2.3.1 torchvision==0.18.1 \
+#         --index-url https://download.pytorch.org/whl/cpu
+# ------------------------------------------------------------------
