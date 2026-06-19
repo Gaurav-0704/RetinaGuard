@@ -96,7 +96,8 @@ def _plot_roc(y_true_bin, probs, aucs, out_path):
         if y_true_bin[:, i].sum() == 0:
             continue
         fpr, tpr, _ = roc_curve(y_true_bin[:, i], probs[:, i])
-        ax.plot(fpr, tpr, label=f"{_NAMES[i]} (AUC={aucs[i]:.3f})")
+        label = f"{_NAMES[i]} (AUC={aucs[i]:.3f})" if aucs[i] is not None else _NAMES[i]
+        ax.plot(fpr, tpr, label=label)
     ax.plot([0, 1], [0, 1], "k--", alpha=0.4)
     ax.set(xlabel="False Positive Rate", ylabel="True Positive Rate",
            title="One-vs-Rest ROC Curves")
@@ -126,10 +127,10 @@ def evaluate(images_dir, csv_path, weights_path, out_dir):
     y_pred = probs.argmax(axis=1)
 
     # ── Headline metrics ──
-    acc        = accuracy_score(y_true, y_pred)
-    f1_macro   = f1_score(y_true, y_pred, average="macro", zero_division=0)
-    f1_weight  = f1_score(y_true, y_pred, average="weighted", zero_division=0)
-    qwk        = cohen_kappa_score(y_true, y_pred, weights="quadratic")
+    acc       = accuracy_score(y_true, y_pred)
+    f1_macro  = f1_score(y_true, y_pred, average="macro", zero_division=0)
+    f1_weight = f1_score(y_true, y_pred, average="weighted", zero_division=0)
+    qwk       = cohen_kappa_score(y_true, y_pred, weights="quadratic")
 
     prec, rec, f1, support = precision_recall_fscore_support(
         y_true, y_pred, labels=_LABELS, zero_division=0)
@@ -139,8 +140,8 @@ def evaluate(images_dir, csv_path, weights_path, out_dir):
     per_class_auc = {}
     for i in _LABELS:
         try:
-            per_class_auc[i] = roc_auc_score(y_true_bin[:, i], probs[:, i]) \
-                if y_true_bin[:, i].sum() > 0 else None
+            per_class_auc[i] = (roc_auc_score(y_true_bin[:, i], probs[:, i])
+                                if y_true_bin[:, i].sum() > 0 else None)
         except ValueError:
             per_class_auc[i] = None
     valid_aucs = [v for v in per_class_auc.values() if v is not None]
