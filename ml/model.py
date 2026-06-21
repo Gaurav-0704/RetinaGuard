@@ -83,7 +83,10 @@ def load_trained_model(weights_path: str, device: torch.device) -> nn.Module:
     nn.Module  –  model in eval mode on the given device
     """
     model = build_model(pretrained=False)
-    checkpoint = torch.load(weights_path, map_location=device)
+    # weights_only=False: our own checkpoint stores extra metadata (numpy scalar
+    # val_qwk). PyTorch 2.6+ defaults weights_only=True and would reject it.
+    # Safe because we created this checkpoint ourselves.
+    checkpoint = torch.load(weights_path, map_location=device, weights_only=False)
 
     # Support both raw state_dict and wrapped {"model_state": ...} saves
     if isinstance(checkpoint, dict) and "model_state" in checkpoint:
